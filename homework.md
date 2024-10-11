@@ -21,3 +21,5 @@ push all the code to remote origin
 Play with routes & route extensions
 Order of routes matter a lot
 Write logic to handle GET,POST,PATCH,DELETE API's and test them on postman
+Explore routing using ?,+,*, and regex
+Read Query params & Dynamic routes
