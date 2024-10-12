@@ -23,3 +23,14 @@ Order of routes matter a lot
 Write logic to handle GET,POST,PATCH,DELETE API's and test them on postman
 Explore routing using ?,+,*, and regex
 Read Query params & Dynamic routes
+
+Task - 3
+Multiple route handlers
+next()
+next() and errors along with res.send()
+app.use('/',rh1,[rh2,rh3],[rh4,rh5,rh6],rh7) 
+What is middleware & why do we need it
+how express handles request behind the scenes
+app.use() vs app.all()
+Write a dummy middle for adminAuth
+Write a dummy middle for all user routes, except login
