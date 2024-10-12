@@ -34,3 +34,4 @@ how express handles request behind the scenes
 app.use() vs app.all()
 Write a dummy middle for adminAuth
 Write a dummy middle for all user routes, except login
+Error handle using wildcard error handling or try catch

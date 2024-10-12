@@ -1,19 +1,24 @@
 const express = require('express');
-const { adminAuth, userAuth } = require('../middlewares/auth');
+// const { adminAuth, userAuth } = require('../middlewares/auth');
 const app = express();
 
-app.use('/admin',adminAuth)
-
-app.get('/admin/getAllData',(req,res) => {
-    res.send("All data fetched successfully!!")
+app.get('/user/data',(req,res) => {
+    try{
+        throw {message : "Something went wrong"}
+        // res.send("User data fetched successfully!!")
+    }catch(err){
+        // console.log(err);
+        
+        res.status(500).send(err.message)
+    }
 })
 
-app.get('/user/data',userAuth,(req,res) => {
-    res.send("User data fetched successfully!!")
-})
-
-app.post('/user/login',(req,res) =>{
-    res.send('User logged in succesfully!!')
+app.use('/',(err,req,res,next) => {
+    console.log("hello");
+    
+    if(err){
+        res.status(500).send(err.message)
+    }
 })
 
 app.listen(3000,() => {
