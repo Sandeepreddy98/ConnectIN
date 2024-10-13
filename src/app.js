@@ -1,26 +1,45 @@
 const express = require('express');
-// const { adminAuth, userAuth } = require('../middlewares/auth');
+const mongodb = require('../config/database')
 const app = express();
 
-app.get('/user/data',(req,res) => {
+const User = require('../models/user')
+
+// Middleware to parse JSON bodies
+app.use(express.json());
+
+// Middleware to parse URL-encoded bodies (usually from forms)
+app.use(express.urlencoded({ extended: true }));
+
+//Signup api for posting the data to User collection
+app.post('/signup',async (req,res) => {
+    const userData = {
+        firstName : req.body.firstName,
+        lastName : req.body.lastName,
+        emailId : req.body.emailId,
+        password : req.body.password,
+        age : req.body.age,
+        gender : req.body.gender
+    }
     try{
-        throw {message : "Something went wrong"}
-        // res.send("User data fetched successfully!!")
+        const user = await new User(userData).save()
+        res.status(200).send("User added sucessfully")
     }catch(err){
-        // console.log(err);
+        res.status(400).send("Failed to save user :" + err.message)
+    }
+})
+
+const connectMongo = async () => {
+    try{
+        await mongodb()
+        console.log("Database connection established !!");
+        app.listen(3000,() => {
+            console.log("App is listening to : 3000");
+        })
+    }catch(err){
+        console.log("Database connection failed!");
         
-        res.status(500).send(err.message)
     }
-})
+}
 
-app.use('/',(err,req,res,next) => {
-    console.log("hello");
-    
-    if(err){
-        res.status(500).send(err.message)
-    }
-})
+connectMongo()
 
-app.listen(3000,() => {
-    console.log("App is listening to : 3000");
-})

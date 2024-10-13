@@ -35,3 +35,14 @@ app.use() vs app.all()
 Write a dummy middle for adminAuth
 Write a dummy middle for all user routes, except login
 Error handle using wildcard error handling or try catch
+
+Task - 4
+create a free cluster
+Install mongoose
+connect application to mongo database (devtinder)
+connect to db before starting application
+Create user schema
+create User model
+create POST /signup api to add data to db
+create some documents in db using postman 
+Error handling using try,catch 

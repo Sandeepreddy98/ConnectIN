@@ -4,12 +4,13 @@
   "description": "Tinder for devs",
   "main": "index.js",
   "scripts": {
-    "start" : "nodemon src/app.js"
+    "start": "nodemon src/app.js"
   },
   "author": "Sandeep Reddy",
   "license": "ISC",
   "dependencies": {
     "express": "^4.21.1",
+    "mongoose": "^8.7.1",
     "nodemon": "^3.1.7"
   }
 }
