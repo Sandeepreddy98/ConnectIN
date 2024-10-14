@@ -46,3 +46,14 @@ create User model
 create POST /signup api to add data to db
 create some documents in db using postman 
 Error handling using try,catch 
+
+Task-5
+Difference between JS object & JSON
+User.findOne() if it has duplicates.which one will the result.
+API /user - GET - get user by email
+API /feed - GET - get all users
+API /userId -get user by ID
+API /user - DELETE - delete user from db
+Difference b/w PATCH & PUT
+API /user -PATCH - Update user data
+Explore Mongoose docs for Model
