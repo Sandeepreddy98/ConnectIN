@@ -13,6 +13,11 @@ app.use(express.urlencoded({ extended: true }));
 //Signup api for posting the data to User collection
 app.post('/signup',async (req,res) => {
     try{
+        const allowedFields = ["firstName","lastName","emailId","password","age","gender","about","photos","skills"];
+        const areFieldsAllowed = Object.keys(req.body).every(key => allowedFields.includes(key))
+        if(!areFieldsAllowed){
+            throw new Error('Fields are not allowed to create user')
+        }
         const user = await new User(req.body).save()
         res.status(200).send("User added sucessfully")
     }catch(err){
@@ -77,16 +82,21 @@ app.delete('/user',async (req,res) => {
 })
 
 //PATCH /user - Update user data by Id
-app.patch('/user',async (req,res) => {
+app.patch('/user/:userID',async (req,res) => {
     try{
-        const user = await User.findByIdAndUpdate(req.body._id,req.body)
+        const allowedFields = ["password","about","photos","skills"];
+        const isFieldAllowedToUpdate = Object.keys(req.body).every(key => allowedFields.includes(key))
+        if(!isFieldAllowedToUpdate){
+            throw new Error('Some of the fields are not allowed to update')
+        }
+        const user = await User.findByIdAndUpdate(req.params.userID,req.body,{returnDocument : "after",runValidators : true})
         if(!user){
             res.status(404).send("User not found")
         }else{
             res.send("User updated successfully")
         }
     }catch(err){
-        res.status(400).send("Something went wrong!")
+        res.status(400).send("Update failed: "+err.message)
     }
 })
 

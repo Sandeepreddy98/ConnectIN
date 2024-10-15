@@ -57,3 +57,15 @@ API /user - DELETE - delete user from db
 Difference b/w PATCH & PUT
 API /user -PATCH - Update user data
 Explore Mongoose docs for Model
+
+Task-6
+Add fields - photoURl[string],about:string,skills[string]
+Validation for all the fields
+Explore schema types from docs.
+required,unique,lowercase,min,minlenth,maxLength,trim
+Add default
+Create a custom validatior function
+Imporve DB scema -All all appropriate validators
+Add timeStamps
+API Level validations on POST,PATCH,PUT methods
+Data sanitization - Add API validation for each field
