@@ -69,3 +69,5 @@ Imporve DB scema -All all appropriate validators
 Add timeStamps
 API Level validations on POST,PATCH,PUT methods
 Data sanitization - Add API validation for each field
+Install validator.js and explore validator functions
+Never trust req.body - beacause attackers may exploit the db from API level

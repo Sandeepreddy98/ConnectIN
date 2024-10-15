@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-
+const mongoose = require('mongoose');
+const validator = require('validator');
 const userSchema = new mongoose.Schema({
     firstName : {
         type : String,
@@ -16,7 +16,14 @@ const userSchema = new mongoose.Schema({
         required : true,
         trim : true,
         lowercase : true,
-        match : [/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,'Please enter a valid email'],
+        //Mongoose level regex validation for checkign valid email
+        // match : [/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,'Please enter a valid email'],
+        //using validator package
+        validate : function(email){
+            if(!validator.isEmail(email)){
+                throw new Error("Enter a valid email")
+            }
+        },
         unique : true,
     },
     password : {
@@ -24,7 +31,14 @@ const userSchema = new mongoose.Schema({
         required : true,
         minLength : 8,
         maxLength : 12,
-        match : [/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,'Password should have atleast 1 alphabet,1 number and 1 special characters']
+        //Mongoose  level regex match for strong password
+        // match : [/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,'Password should have atleast 1 alphabet,1 number and 1 special characters']
+        //Validator package validation
+        validate :function (password){
+            if(!validator.isStrongPassword(password)){
+                throw new Error("Please enter strong password");
+            }
+        }
     },
     age : {
         type : Number,
@@ -34,8 +48,15 @@ const userSchema = new mongoose.Schema({
     gender : {
         type : String,
         required : true,
-        validate : (value) => {
-            if(!['male','female','others'].includes(value)){
+        // //JS level validation for check element is present in that array.
+        // validate : (value) => {
+        //     if(!['male','female','others'].includes(value)){
+        //         throw new Error('Please enter a valid gender')
+        //     }
+        // }
+        //Using validator
+        validate : function (gender) {
+            if(!validator.isIn(gender,['male','female','others'])){
                 throw new Error('Please enter a valid gender')
             }
         }
@@ -57,9 +78,16 @@ const userSchema = new mongoose.Schema({
                 return ['https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg']
             }
         },
+        //JS Level Validations
         validate : (arr) => {
             if(arr.length >=5){
                 throw new Error("Photos more than 5 are not allowed")
+            }
+        },
+        validate : function(pics){
+            const isValidURL = pics.every(pic => validator.isURL(pic))
+            if(!isValidURL){
+                throw new Error('Invalid Photos')
             }
         }
     },
