@@ -29,8 +29,8 @@ const userSchema = new mongoose.Schema({
     password : {
         type  :String,
         required : true,
-        minLength : 8,
-        maxLength : 12,
+        // minLength : 8,
+        // maxLength : 12,
         //Mongoose  level regex match for strong password
         // match : [/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,'Password should have atleast 1 alphabet,1 number and 1 special characters']
         //Validator package validation

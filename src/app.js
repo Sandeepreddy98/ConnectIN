@@ -1,8 +1,9 @@
 const express = require('express');
 const mongodb = require('../config/database')
 const app = express();
-
+const bcrypt = require('bcrypt')
 const User = require('../models/user')
+const validator = require('validator')
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -13,15 +14,36 @@ app.use(express.urlencoded({ extended: true }));
 //Signup api for posting the data to User collection
 app.post('/signup',async (req,res) => {
     try{
-        const allowedFields = ["firstName","lastName","emailId","password","age","gender","about","photos","skills"];
-        const areFieldsAllowed = Object.keys(req.body).every(key => allowedFields.includes(key))
-        if(!areFieldsAllowed){
-            throw new Error('Fields are not allowed to create user')
-        }
-        const user = await new User(req.body).save()
+        // const allowedFields = ["firstName","lastName","emailId","password","age","gender","about","photos","skills"];
+        // const areFieldsAllowed = Object.keys(req.body).every(key => allowedFields.includes(key))
+        // if(!areFieldsAllowed){
+        //     throw new Error('Fields are not allowed to create user')
+        // }
+        const {firstName,lastName,emailId,password,age,gender,about,photos,skills} = req.body
+        const passwordHash = await bcrypt.hash(password,10)
+        const user = await new User({
+            firstName,lastName,emailId,password : passwordHash,age,gender,about,photos,skills
+        }).save()
         res.status(200).send("User added sucessfully")
     }catch(err){
         res.status(400).send("Failed to save user :" + err.message)
+    }
+})
+
+//Login API for authenticating the user.
+app.post('/login',async (req,res) => {
+    try{
+        const isEmailExist = await User.findOne({emailId : req.body.emailId})
+        if(!isEmailExist){
+            throw new Error("Invalid Credentials");
+        }
+        const isUserValid = await bcrypt.compare(req.body.password,isEmailExist.password)
+        if(!isUserValid){
+            throw new Error("Invalid Credentials");
+        }
+        res.send('User logged in successfully')
+    }catch(err){
+        res.status(400).send("Login failed : "+err.message)
     }
 })
 
