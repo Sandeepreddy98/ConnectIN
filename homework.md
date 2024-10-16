@@ -76,3 +76,17 @@ Task-7
 Validate data of signup
 Install Bcrypt package
 create a password hash and store it in users collection
+
+Task-8
+Install cookie parser
+send dummy cookie to user
+GET /profile - check the cookie back using res.cookie()
+Install jsonwebtoken
+/login After email & password validation create JWT token and attach it inside cookie and sent it to user
+/profile - read cookie and  get the user data.
+
+userAuth middleware
+add user Auth middleware in profile & new /sendConnectionRequest -POST
+Expire token,cookies in 1 day.
+create a mongoose schema methods for creating JWT
+create a mongoose schema for checking user credentials
