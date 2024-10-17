@@ -122,3 +122,15 @@ create a mongoose schema for checking user credentials
 -create PATCH - /profile/edit
 -create PATCH - /profile/password
 validate POST & PATCH API's
+
+### Connection request
+-create connection request schema
+-Create POST /connectionrequest/:status/:toUserId - status can interested or ignored
+-Proper validation
+-Handle all corner cases
+- $or or $and in mongoose
+-schema.pre()
+What is advantages of creating index
+Disadvantages of creating lot of index
+Compound Index
+-Read about queries in mongodb

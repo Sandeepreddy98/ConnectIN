@@ -15,8 +15,8 @@ app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/profile',profileRouter)
+app.use('/request',requestRouter)
 app.use('/',authRouter)
-app.use('/',requestRouter)
 app.use('/',userRouter)
 
 const connectMongo = async () => {
