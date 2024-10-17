@@ -118,3 +118,7 @@ create a mongoose schema for checking user credentials
 -Delete /user/delete
 
 -Explore express.Router() & implement the same in project
+-create POST - /logout 
+-create PATCH - /profile/edit
+-create PATCH - /profile/password
+validate POST & PATCH API's
