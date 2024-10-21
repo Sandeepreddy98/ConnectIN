@@ -15,9 +15,9 @@ authRouter.post('/signup',async (req,res) => {
         const user = await new User({
             firstName,lastName,emailId,password : passwordHash,age,gender,about,photos,skills
         }).save()
-        res.status(200).send("User added sucessfully")
+        res.status(200).json({message : "User added sucessfully"})
     }catch(err){
-        res.status(400).send("Failed to save user :" + err.message)
+        res.status(400).json({message : err.message})
     }
 })
 
@@ -30,14 +30,14 @@ authRouter.post('/login',async (req,res) => {
         await user.validatePassword(req.body.password)
         const token  = await user.getJWT()
         res.cookie('token',token,{ expires: new Date(Date.now() + 24 * 60 * 60 * 1000)})
-        res.send('User logged in successfully')
+        res.status(200).json({message : 'User logged in successfully'})
     }catch(err){
-        res.status(400).send("Login failed : "+err.message)
+        res.status(400).send({message :err.message})
     }
 })
 
 authRouter.post('/logout', (req, res) => {
-    res.cookie("token", null, { expires: new Date(Date.now()) }).send('Logged out successfully')
+    res.cookie("token", null, { expires: new Date(Date.now()) }).status(200).json({message : 'Logged out successfully'})
 })
 
 module.exports = authRouter

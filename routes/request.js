@@ -32,7 +32,7 @@ requestRouter.post('/send/:status/:toUserId', userAuth, async (req, res) => {
             status : req.params.status
         })
         const connectionRequestData = await connectionRequest.save()
-        res.json({
+        res.status(200).json({
           message:
             req.params.status === "interested"
               ? `${req.user.firstName} is interested in ${toUserData.firstName}`
@@ -40,7 +40,7 @@ requestRouter.post('/send/:status/:toUserId', userAuth, async (req, res) => {
           data: connectionRequestData,
         });
     } catch (err) {
-        res.status(400).send(err.message)
+        res.status(400).json({message : err.message})
     }
 })
 
@@ -64,12 +64,12 @@ requestRouter.post('/review/:status/:requestId',userAuth,async (req,res) =>{
         }
         connectionRequest.status = status
         const data = await connectionRequest.save()
-        res.json({
+        res.status(200).json({
             message : "Connection request " + status,
             data : data
         })
     }catch(err){
-        res.status(400).send("Error: "+err.message)
+        res.status(400).json({message : err.message})
     }
 })
 

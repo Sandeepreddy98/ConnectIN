@@ -12,12 +12,12 @@ userRouter.get('/requests/received',userAuth,async (req,res) => {
             toUserId : loggedInUser._id,
             status : "interested"
         }).populate("fromUserId",user_safe_data)
-        res.json({
+        res.status(200).json({
             message : "Data fetched successfully",
             data : connectionRequests
         })
     }catch(err){
-        res.status(400).send("Error" + err.message)
+        res.status(400).json({message : err.message})
     }
 })
 
@@ -33,12 +33,12 @@ userRouter.get("/connections",userAuth,async (req,res) => {
             ]
         }).populate("fromUserId",user_safe_data).populate("toUserId",user_safe_data)
         const data = connections.map(usr => usr.fromUserId._id.toEquals(loggedInUser._id) ? usr.fromUserId : usr.toUserId)
-        res.json({
+        res.status(200).json({
             message : "Connections fetched successfully",
             data
         })
     }catch(err){
-        res.status(400).send("message : "+err.message)
+        res.status(400).json({message : err.message})
     }
 })
 
@@ -65,7 +65,7 @@ userRouter.get("/feed",userAuth,async (req,res) => {
                 {_id : {$ne : loggedInUser._id}}
             ]
         }).skip((page-1)*limit).limit(limit).select(user_safe_data)
-        res.json({
+        res.status(200).json({
             message : "Feed fetched successfully",
             data : feed
         })
