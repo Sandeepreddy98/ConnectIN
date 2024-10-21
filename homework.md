@@ -134,3 +134,14 @@ What is advantages of creating index
 Disadvantages of creating lot of index
 Compound Index
 -Read about queries in mongodb
+
+# Task -10 
+-Create POST request/review/:status/:requestId - for review the connection request
+-Thought process b/w POST vs GET
+-create GET -  /request/received - for all the pending reuqests for logged in user
+-refer Ref,populate in mongoose 
+-create GET -  /request/connections - for all the connection for logged in user
+
+# Task-11
+-Create GET /user/feed?page=1&limit=10
+-Pagination 

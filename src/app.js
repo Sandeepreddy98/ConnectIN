@@ -16,8 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/profile',profileRouter)
 app.use('/request',requestRouter)
+app.use('/user',userRouter)
 app.use('/',authRouter)
-app.use('/',userRouter)
 
 const connectMongo = async () => {
     try{
