@@ -3,10 +3,6 @@ const authRouter = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
-authRouter.post('/',async (req,res) => {
-    res.send('Connect In')
-})
-
 authRouter.post('/signup',async (req,res) => {
     try{
         // const allowedFields = ["firstName","lastName","emailId","password","age","gender","about","photos","skills"];
@@ -42,6 +38,9 @@ authRouter.post('/login',async (req,res) => {
 
 authRouter.post('/logout', (req, res) => {
     res.cookie("token", null, { expires: new Date(Date.now()) }).status(200).json({message : 'Logged out successfully'})
+})
+authRouter.post('/',async (req,res) => {
+    res.send('Connect In')
 })
 
 module.exports = authRouter
