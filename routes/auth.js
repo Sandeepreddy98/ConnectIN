@@ -39,7 +39,7 @@ authRouter.post('/login',async (req,res) => {
 authRouter.post('/logout', (req, res) => {
     res.cookie("token", null, { expires: new Date(Date.now()) }).status(200).json({message : 'Logged out successfully'})
 })
-authRouter.post('/',async (req,res) => {
+authRouter.post('/index',async (req,res) => {
     res.send('Connect In')
 })
 
