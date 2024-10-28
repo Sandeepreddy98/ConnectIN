@@ -26,13 +26,12 @@ userRouter.get("/connections",userAuth,async (req,res) => {
     try{
         const loggedInUser = req.user
         const connections = await ConnectionRequest.find({
-            status : "accepted",
             $or : [
-                {toUserId : loggedInUser._id},
-                {fromUserId : loggedInUser._id}
+                {toUserId : loggedInUser._id,status : "accepted"},
+                {fromUserId : loggedInUser._id,status : "accepted"}
             ]
         }).populate("fromUserId",user_safe_data).populate("toUserId",user_safe_data)
-        const data = connections.map(usr => usr.fromUserId._id.toEquals(loggedInUser._id) ? usr.fromUserId : usr.toUserId)
+        const data = connections.map(usr => usr.fromUserId._id.toString() === loggedInUser._id.toString() ? usr.toUserId : usr.fromUserId)
         res.status(200).json({
             message : "Connections fetched successfully",
             data

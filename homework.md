@@ -145,3 +145,18 @@ Compound Index
 # Task-11
 -Create GET /user/feed?page=1&limit=10
 -Pagination 
+
+# Task - 12
+## -POST - post/create
+schema 
+### Title
+-required,minLength,maxlength,trim,string
+### Description
+- required,minLength,maxLength,trim,string
+### URl's
+- [String],maxLength = 5 ,validateUrl,each pic can't exceed 5mb
+-GET - post/read
+-PATCH - post/update
+-DELETE - post/delete
+-GET - post/feed
+     - fetch all the posts having createdBy : my followers

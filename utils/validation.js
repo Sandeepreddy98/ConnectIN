@@ -15,7 +15,19 @@ const validateEditPassword = (req,res) => {
     return isEditPasswordAllowed
 }
 
+const isValidMongoId = (mongoId) => {
+    return validator.isMongoId(mongoId)
+}
+
+const validateEditPost = (req) => {
+    const allowedFieldsToEditPost = ["title","description","url"]
+    const isEditFieldsAllowed = Object.keys(req.body).every(key => allowedFieldsToEditPost.includes(key))
+    return isEditFieldsAllowed
+}
+
 module.exports = {
     validateEditProfileData,
-    validateEditPassword
+    validateEditPassword,
+    isValidMongoId,
+    validateEditPost
 }

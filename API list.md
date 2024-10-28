@@ -21,3 +21,10 @@
 -GET /user/feed
 
 status : ignore,interested,accepted,rejected
+
+## post
+-POST - post/create
+-GET - post/read/:id
+-PATCH - post/update/:id
+-DELETE - post/delete/:id
+-GET - post/feed
