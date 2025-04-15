@@ -2,6 +2,7 @@ const express = require('express');
 const mongodb = require('../config/database')
 const app = express();
 const cookieParser = require('cookie-parser');
+require('dotenv').config()
 const authRouter = require('../routes/auth');
 const profileRouter = require('../routes/profile');
 const requestRouter = require('../routes/request');
